@@ -7,7 +7,7 @@ import org.openqa.selenium.chrome.ChromeDriver;
 
 public class BaseUtils {
 
-    public static WebDriver driver;
+    public WebDriver driver;
 
     @Before
     public  void launchApp() {
