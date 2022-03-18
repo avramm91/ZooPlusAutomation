@@ -1,46 +1,43 @@
 package PageObjects;
 
-import Base.BaseUtils;
+import Base.BasePage;
 import Help.ElementMethods;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
-import org.openqa.selenium.support.PageFactory;
-import org.openqa.selenium.support.ui.ExpectedConditions;
-import org.openqa.selenium.support.ui.WebDriverWait;
 
-import java.time.Duration;
+public class LoginPage extends BasePage {
 
-public class LoginPage {
+    public LoginPage(WebDriver driver) {
+        super(driver);
+        elementMethods = new ElementMethods(driver);
+    }
 
-    public WebDriver driver;
     public ElementMethods elementMethods;
 
     @FindBy(className = "my__account__text")
-    WebElement userProfileButton;
+    public WebElement userProfileButton;
 
-    @FindBy(id = "onetrust-accept-btn-handler")
-    WebElement acceptCookies;
+    @FindBy(css = "#mzp-navigation > div[class='v3-flatbox--shadow App-zooplus-module__MenuContainer--zna1UxpK2N']> ul[class='App-zooplus-module__MenuList--gzfhm0QmKA']>li[class='App-zooplus-module__Logout--pAAYD4Ittg']")
+    public WebElement logOutButton;
+
+    @FindBy(id = "modal fade feedback-logout")
+    public WebElement logOutFeedback;
 
     @FindBy(id = "login-email")
-    WebElement emailField;
+    public WebElement emailField;
 
     @FindBy(id = "login-password")
-    WebElement passwordField;
+    public WebElement passwordField;
 
     @FindBy(id = "loginButton")
-    WebElement intraInContButton;
+    public WebElement intraInContButton;
 
     @FindBy(id = "js-loginError-notificationText")
-    WebElement loginError;
+    public WebElement loginError;
 
-    public LoginPage(WebDriver driver) {
-        this.driver = driver;
-        PageFactory.initElements(driver, this);
-        elementMethods = new ElementMethods(driver);
-}
     public void login(String email, String password, String message) {
-        acceptCookies.click();
+        acceptCookies();
         userProfileButton.click();
         emailField.sendKeys(email);
         passwordField.sendKeys(password);
@@ -50,16 +47,15 @@ public class LoginPage {
     }
 
     public void login(String email, String password) {
-        acceptCookies.click();
+        acceptCookies();
         userProfileButton.click();
         emailField.sendKeys(email);
         passwordField.sendKeys(password);
         intraInContButton.click();
-
+        WaitToLoadURL("https://www.zooplus.ro/account/overview");
+        elementMethods.isElementDisplayed(logOutButton);
+        logOutButton.click();
     }
-
-
-
 
 
 }

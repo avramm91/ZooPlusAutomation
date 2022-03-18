@@ -15,17 +15,17 @@ public class ElementMethods {
         this.driver = driver;
     }
 
-    public Boolean isElementDisplayed(WebElement element){
+    public Boolean isElementDisplayed(WebElement element) {
         return element.isDisplayed();
     }
 
-    public void validateElementMessage(WebElement element, String expected){
+    public void validateElementMessage(WebElement element, String expected) {
         waitElement(element);
         String actual = element.getText();
-        Assert.assertEquals("The expected is not equal with actual",expected, actual);
+        Assert.assertEquals("The expected is not equal with actual", expected, actual);
     }
 
-    public void waitElement(WebElement element){
+    public void waitElement(WebElement element) {
         WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(60));
         wait.until(ExpectedConditions.visibilityOf(element));
     }
